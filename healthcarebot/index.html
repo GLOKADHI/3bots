@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthBot - Your Natural Remedy Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="header-title">
+                    <span class="health-icon">🌿</span>
+                    HealthBot
+                </h1>
+                <p class="header-subtitle">Your Natural Remedy Assistant</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section" id="welcomeSection">
+                <div class="card welcome-card">
+                    <div class="card__body">
+                        <h2>Welcome to HealthBot</h2>
+                        <p>I'm here to help you find natural home remedies for common physical and mental health symptoms. I can provide guidance on natural treatments using ingredients you might have at home.</p>
+                        
+                        <div class="disclaimer-box">
+                            <h3>⚠️ Important Disclaimer</h3>
+                            <p>These home remedies are for <strong>mild symptoms only</strong>. Always consult a healthcare professional for persistent, severe, or worsening symptoms. Seek immediate medical attention for emergencies.</p>
+                        </div>
+
+                        <div class="welcome-actions">
+                            <button class="btn btn--primary btn--lg" onclick="startChat()">
+                                Start Consultation
+                            </button>
+                            <button class="btn btn--outline btn--lg" onclick="showSymptomCategories()">
+                                Browse Remedies
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Symptom Categories -->
+            <section class="symptom-categories hidden" id="symptomCategories">
+                <div class="card">
+                    <div class="card__body">
+                        <h2>Select Symptom Category</h2>
+                        <div class="category-grid">
+                            <div class="category-card" onclick="selectCategory('physical')">
+                                <span class="category-icon">🤒</span>
+                                <h3>Physical Symptoms</h3>
+                                <p>Headache, fever, stomach ache, sore throat, cough</p>
+                            </div>
+                            <div class="category-card" onclick="selectCategory('mental')">
+                                <span class="category-icon">🧘</span>
+                                <h3>Mental Health</h3>
+                                <p>Anxiety, stress, mild depression, insomnia</p>
+                            </div>
+                        </div>
+                        <button class="btn btn--secondary" onclick="showWelcome()">Back to Home</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Symptom Selection -->
+            <section class="symptom-selection hidden" id="symptomSelection">
+                <div class="card">
+                    <div class="card__body">
+                        <h2 id="categoryTitle">Select Your Symptoms</h2>
+                        <div class="symptom-list" id="symptomList">
+                            <!-- Dynamically populated -->
+                        </div>
+                        <button class="btn btn--secondary" onclick="showSymptomCategories()">Back to Categories</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chat Interface -->
+            <section class="chat-section hidden" id="chatSection">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h2>HealthBot Consultation</h2>
+                        <button class="btn btn--secondary btn--sm" onclick="showWelcome()">New Session</button>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Messages will be added here dynamically -->
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <div class="chat-input-wrapper">
+                            <input 
+                                type="text" 
+                                class="form-control chat-input" 
+                                id="chatInput" 
+                                placeholder="Describe your symptoms or ask a question..."
+                                maxlength="500"
+                            >
+                            <button class="btn btn--primary send-btn" onclick="sendMessage()" id="sendBtn">
+                                Send
+                            </button>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="quick-actions" id="quickActions">
+                            <button class="btn btn--outline btn--sm quick-action-btn" onclick="sendQuickMessage('I have a headache')">
+                                Headache
+                            </button>
+                            <button class="btn btn--outline btn--sm quick-action-btn" onclick="sendQuickMessage('I feel anxious')">
+                                Anxiety
+                            </button>
+                            <button class="btn btn--outline btn--sm quick-action-btn" onclick="sendQuickMessage('I have stomach pain')">
+                                Stomach Pain
+                            </button>
+                            <button class="btn btn--outline btn--sm quick-action-btn" onclick="sendQuickMessage('I cannot sleep')">
+                                Sleep Issues
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Remedy Display -->
+            <section class="remedy-section hidden" id="remedySection">
+                <div class="remedy-content" id="remedyContent">
+                    <!-- Remedies will be displayed here -->
+                </div>
+                <div class="remedy-actions">
+                    <button class="btn btn--secondary" onclick="showSymptomCategories()">Try Different Symptoms</button>
+                    <button class="btn btn--primary" onclick="startChat()">Ask Questions</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Emergency Alert Modal -->
+        <div class="modal hidden" id="emergencyModal">
+            <div class="modal-overlay" onclick="closeEmergencyModal()"></div>
+            <div class="modal-content emergency-modal">
+                <div class="emergency-header">
+                    <h2>⚠️ Seek Immediate Medical Attention</h2>
+                </div>
+                <div class="emergency-body">
+                    <p>The symptoms you've described may indicate a serious medical condition that requires immediate professional care.</p>
+                    <div class="emergency-actions">
+                        <p><strong>Please:</strong></p>
+                        <ul>
+                            <li>Call emergency services (911) if severe</li>
+                            <li>Visit the nearest emergency room</li>
+                            <li>Contact your healthcare provider immediately</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="emergency-footer">
+                    <button class="btn btn--primary btn--full-width" onclick="closeEmergencyModal()">
+                        I Understand
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
